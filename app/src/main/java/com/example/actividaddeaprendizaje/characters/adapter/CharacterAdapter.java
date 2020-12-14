@@ -1,5 +1,8 @@
 package com.example.actividaddeaprendizaje.characters.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,27 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.actividaddeaprendizaje.R;
 import com.example.actividaddeaprendizaje.beans.Character;
+import com.example.actividaddeaprendizaje.characters.fdCharacters.view.FdCharactersActivity;
+import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
     private ArrayList<Character> lstCharacters;
+    private Context context;
 
     public static class CharacterViewHolder extends RecyclerView.ViewHolder{
         public ImageView img;
         public TextView nombre;
-        public TextView descripcion;
 
         public CharacterViewHolder(View v){
             super(v);
             img = v.findViewById(R.id.imgCharacter);
             nombre = v.findViewById(R.id.txtNombre);
-            descripcion = v.findViewById(R.id.txtDescripcion);
         }
     }
 
-    public CharacterAdapter(ArrayList<Character> lstCharacters){
+    public CharacterAdapter(ArrayList<Character> lstCharacters, Context context){
         this.lstCharacters = lstCharacters;
+        this.context = context;
     }
 
     @NonNull
@@ -49,7 +55,20 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         Character character = lstCharacters.get(position);
 
         holder.nombre.setText(character.getNombre());
-        holder.descripcion.setText(character.getDescripcion());
+        //Picasso.with(context).load(character.getImage()).into(holder.img);
+        Picasso.get().load(character.getImage()).
+                into(holder.img);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), FdCharactersActivity.class);
+                intent.putExtra("nombre", character.getNombre());
+                intent.putExtra("descripcion",character.getDescripcion());
+                intent.putExtra("imagen",character.getImage());
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 

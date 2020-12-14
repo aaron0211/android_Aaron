@@ -10,7 +10,7 @@ public class Character {
     private static final String ID = "id";
     private static final String NAME = "name";
     private static final String DESCRIPTION = "description";
-    private static final String  THUMBNAIL = "thumbnail";
+    private static final String THUMBNAIL = "thumbnail";
 
     private int id;
     private String nombre;
@@ -39,7 +39,11 @@ public class Character {
         return image;
     }
     public void setImage(String image) {
-        this.image = image;
+        String path = image.substring(9,image.length()-20);
+        path = path.replace("/","");
+        String ext = image.substring(image.length()-5,image.length()-2);
+        this.image = path+"."+ext;
+        //this.image="http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_small.jpg";
     }
 
     public static ArrayList<Character> getArrayListFromJSON(JSONArray lstCharacters){
@@ -51,6 +55,8 @@ public class Character {
             for (int i=0;i<lstCharacters.length();i++){
                 JSONObject json_data = lstCharacters.getJSONObject(i);
                 Character character = new Character();
+
+                //String urlImagen = THUMBNAIL.getPath()+"."+THUMBNAIL.getExt();
 
                 character.setId(json_data.getInt(ID));
                 character.setNombre(json_data.getString(NAME));

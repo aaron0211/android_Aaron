@@ -43,7 +43,7 @@ public class LstCharactersActivity extends AppCompatActivity  implements LstChar
 
         recycler.setLayoutManager(lManager);
         //Crear un nuevo adaptador
-        CharacterAdapter adapter = new CharacterAdapter(characters);
+        CharacterAdapter adapter = new CharacterAdapter(characters,this);
 
         recycler.setAdapter(adapter);
     }

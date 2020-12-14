@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class LstCharactersModel implements LstCharactersContract.Model {
 
-    private static final String URL ="https://gateway.marvel.com:443/v1/public/characters?apikey=570ab40c6c10c47c081acdd50dd09db4";
+    private static final String URL = "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=570ab40c6c10c47c081acdd50dd09db4&hash=1745346a3030e01cda6393ae8e0b0db5";
 
     private ArrayList<Character> lstArrayCharacters;
     OnLstCharactersListener onLstCharactersListener;
@@ -23,6 +23,8 @@ public class LstCharactersModel implements LstCharactersContract.Model {
     @Override
     public void getCharactersWS(final OnLstCharactersListener onLstCharactersListener) {
         this.onLstCharactersListener = onLstCharactersListener;
+        DatosAPI dapi = new DatosAPI();
+        dapi.execute();
     }
 
     class DatosAPI extends AsyncTask<String, Integer, Boolean>{
@@ -37,8 +39,9 @@ public class LstCharactersModel implements LstCharactersContract.Model {
             datos.put("apiKey","570ab40c6c10c47c081acdd50dd09db4");
             try {
                 JSONObject objectCharacters = post.getServerDataGetObject(URL);
-                JSONArray lstCharacters = objectCharacters.getJSONArray("results");
-                lstArrayCharacters = Character.getArrayListFromJSON(lstCharacters);
+                JSONObject lstCharacters = objectCharacters.getJSONObject("data");
+                JSONArray lstCharacters2 = lstCharacters.getJSONArray("results");
+                lstArrayCharacters = Character.getArrayListFromJSON(lstCharacters2);
             } catch (JSONException jsonException) {
                 jsonException.printStackTrace();
             }
