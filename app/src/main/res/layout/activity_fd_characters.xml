@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:weightSum="100"
     android:orientation="vertical"
-    tools:context=".characters.fdCharacters.view.FdCharactersActivity">
+    tools:context=".FdCharactersActivity">
 
 
     <ImageView
@@ -26,6 +26,7 @@
         android:textSize="40dp"
         android:textColor="@color/black"
         android:textAlignment="center"
+        android:scrollbars="vertical"
         android:paddingTop="10dp"/>
 
     <TextView
@@ -34,6 +35,7 @@
         android:layout_height="0dp"
         android:layout_weight="40"
         android:textSize="25dp"
+        android:scrollbars="vertical"
         android:textAlignment="center"/>
 
 </LinearLayout>

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActividadDeAprendizaje">
-        <activity android:name=".characters.fdCharacters.view.FdCharactersActivity"></activity>
+        <activity android:name=".characters.searchCharacters.view.SearchCharactersActivity"></activity>
+        <activity android:name=".characters.filterCharacters.view.FilterCharacterActivity" />
+        <activity android:name=".FdCharactersActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,9 +19,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="70"
+            android:layout_weight="80"
             android:text="Lista de Personajes"
-            android:textSize="30dp"
+            android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/red"
             android:background="@color/white"
@@ -30,46 +30,19 @@
             tools:ignore="RtlCompat" />
 
         <Spinner
-            android:id="@+id/spFiltro"
+            android:id="@+id/spFilterFiltro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_weight="20"
             android:background="@color/white"/>
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCharacters"
+        android:id="@+id/recyclerFilterCharacters"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <EditText
-            android:id="@+id/etBuscador"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="70"
-            android:hint="Buscador de Personajes"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:paddingTop="20dp"
-            android:background="@color/white"/>
-
-        <Button
-            android:id="@+id/btBuscar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:text="Buscar"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="@color/white"/>
-    </LinearLayout>
+        android:layout_weight="90"
+        android:background="@color/white"/>
 
 </LinearLayout>

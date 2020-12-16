@@ -1,9 +1,10 @@
-package com.example.actividaddeaprendizaje.characters.fdCharacters.view;
+package com.example.actividaddeaprendizaje;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +22,9 @@ public class FdCharactersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fd_characters);
 
         nombre = findViewById(R.id.fdnombre);
+        nombre.setMovementMethod(new ScrollingMovementMethod());
         descripcion = findViewById(R.id.fdDescripcion);
+        descripcion.setMovementMethod(new ScrollingMovementMethod());
         imagen = findViewById(R.id.fdimagen);
 
         Intent i = getIntent();

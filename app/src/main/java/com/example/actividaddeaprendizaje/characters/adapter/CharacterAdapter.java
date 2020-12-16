@@ -1,8 +1,6 @@
 package com.example.actividaddeaprendizaje.characters.adapter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.actividaddeaprendizaje.R;
 import com.example.actividaddeaprendizaje.beans.Character;
-import com.example.actividaddeaprendizaje.characters.fdCharacters.view.FdCharactersActivity;
+import com.example.actividaddeaprendizaje.FdCharactersActivity;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
     private ArrayList<Character> lstCharacters;
-    private Context context;
 
     public static class CharacterViewHolder extends RecyclerView.ViewHolder{
         public ImageView img;
@@ -35,9 +31,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         }
     }
 
-    public CharacterAdapter(ArrayList<Character> lstCharacters, Context context){
+    public CharacterAdapter(ArrayList<Character> lstCharacters){
         this.lstCharacters = lstCharacters;
-        this.context = context;
     }
 
     @NonNull
