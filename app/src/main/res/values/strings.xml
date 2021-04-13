@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Actividad de Aprendizaje</string>
+    <string name="search">Búsqueda de personajes</string>
+    <string name="search_button">Buscar</string>
+    <string name="lista_de_personajes">Lista de Personajes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

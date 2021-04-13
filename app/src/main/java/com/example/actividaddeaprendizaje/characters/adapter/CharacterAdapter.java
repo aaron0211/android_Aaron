@@ -1,6 +1,7 @@
 package com.example.actividaddeaprendizaje.characters.adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.actividaddeaprendizaje.FdCharacterFragment;
 import com.example.actividaddeaprendizaje.R;
 import com.example.actividaddeaprendizaje.beans.Character;
 import com.example.actividaddeaprendizaje.FdCharactersActivity;
@@ -26,8 +28,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
         public CharacterViewHolder(View v){
             super(v);
-            img = v.findViewById(R.id.imgCharacter);
-            nombre = v.findViewById(R.id.txtNombre);
+            img = v.findViewById(R.id.row_character_ivImg);
+            nombre = v.findViewById(R.id.row_character_tvName);
         }
     }
 
@@ -50,18 +52,27 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         Character character = lstCharacters.get(position);
 
         holder.nombre.setText(character.getNombre());
-        //Picasso.with(context).load(character.getImage()).into(holder.img);
-        Picasso.get().load(character.getImage()).
-                into(holder.img);
+        String imagen = character.getThumbnail().getPath();
+        imagen = imagen.replace("http","https");
+        Picasso.get().load(imagen+"."+character.getThumbnail().getExtension()).into(holder.img);
 
+        String finalImagen = imagen;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), FdCharactersActivity.class);
-                intent.putExtra("nombre", character.getNombre());
-                intent.putExtra("descripcion",character.getDescripcion());
-                intent.putExtra("imagen",character.getImage());
-                v.getContext().startActivity(intent);
+                Intent detalle = new Intent(v.getContext(), FdCharactersActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString(FdCharacterFragment.ARG_EXTRA_NAME,character.getNombre());
+                extras.putString(FdCharacterFragment.ARG_EXTRA_IMG, finalImagen+"."+character.getThumbnail().getExtension());
+                extras.putString(FdCharacterFragment.ARG_EXTRA_DESCRICPTION,character.getDescripcion());
+                detalle.putExtras(extras);
+                v.getContext().startActivity(detalle);
+
+//                Intent intent = new Intent(v.getContext(), FdCharactersActivity.class);
+//                intent.putExtra("nombre", character.getNombre());
+//                intent.putExtra("descripcion",character.getDescripcion());
+//                intent.putExtra("imagen",character.getThumbnail().getPath()+"."+character.getThumbnail().getExtension());
+//                v.getContext().startActivity(intent);
             }
         });
 
@@ -71,7 +82,4 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     public int getItemCount() {
         return lstCharacters.size();
     }
-
-
-
 }

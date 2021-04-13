@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/activity_lst_characters_layout_Relative"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="100"
-    android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/activity_lst_characters_linearLayout_top"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_height="wrap_content"
         android:weightSum="100"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="80"
-            android:text="Lista de Personajes"
+            android:text="@string/lista_de_personajes"
             android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="@color/red"
@@ -30,45 +30,48 @@
             tools:ignore="RtlCompat" />
 
         <Spinner
-            android:id="@+id/spFiltro"
+            android:id="@+id/activity_lst_characters_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"/>
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCharacters"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="80"/>
     <LinearLayout
+        android:id="@+id/activity_lst_characters_linearLayout_center"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_height="match_parent"
+        android:layout_above="@id/activity_lst_characters_linearLayout_search"
+        android:layout_below="@id/activity_lst_characters_linearLayout_top"
+        android:orientation="vertical" />
 
-        <EditText
-            android:id="@+id/etBuscador"
-            android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/activity_lst_characters_linearLayout_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:layout_weight="70"
-            android:hint="Buscador de Personajes"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:paddingTop="20dp"
-            android:background="@color/white"/>
+            android:hint="@string/search"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_lst_characters_textinput_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btBuscar"
-            android:layout_width="0dp"
+            android:id="@+id/activity_lst_characters_button_search"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:text="Buscar"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="@color/white"/>
+            android:text="@string/search_button"
+            style="@style/Widget.MaterialComponents.Button"/>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

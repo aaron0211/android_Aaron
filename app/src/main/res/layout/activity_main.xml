@@ -7,13 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/ic_vanishing_stripes">
-
+    android:background="@color/red">
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        app:srcCompat="@drawable/logo"/>
+        android:visibility="visible"/>
+<!--        app:srcCompat="@drawable/logo"/>-->
 </FrameLayout>

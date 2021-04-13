@@ -1,10 +1,5 @@
 package com.example.actividaddeaprendizaje.characters.lstCharacters.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,91 +7,63 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.actividaddeaprendizaje.R;
-import com.example.actividaddeaprendizaje.beans.Character;
-import com.example.actividaddeaprendizaje.characters.adapter.CharacterAdapter;
-import com.example.actividaddeaprendizaje.characters.filterCharacters.view.FilterCharacterActivity;
-import com.example.actividaddeaprendizaje.characters.lstCharacters.contract.LstCharactersContract;
-import com.example.actividaddeaprendizaje.characters.lstCharacters.presenter.LstCharactersPresenter;
-import com.example.actividaddeaprendizaje.characters.searchCharacters.view.SearchCharactersActivity;
+import com.example.actividaddeaprendizaje.characters.filterCharacters.view.FilterCharacterFragment;
+import com.example.actividaddeaprendizaje.characters.lstCharacters.fragment.LstFragment;
+import com.example.actividaddeaprendizaje.characters.searchCharacters.view.SearchCharacterFragment;
 
-import java.util.ArrayList;
+public class LstCharactersActivity extends AppCompatActivity {
 
-public class LstCharactersActivity extends AppCompatActivity  implements LstCharactersContract.View {
+    private Spinner spinner;
+    private EditText editTextSearch;
+    private Button buttonSearch;
 
-    private RecyclerView recycler;
-    private LstCharactersPresenter lstCharactersPresenter;
-    private RecyclerView.LayoutManager lManager;
-    private EditText buscar;
-    private Button buscador;
-    private Spinner comboFiltro;
+    private String[] listaSpinner = {" ","2016","2017","2018","2019","2020","2021"};
 
-    private String[] listaSpinner = {" ","2016","2017","2018","2019","2020"};
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lst_characters);
 
-        buscador = findViewById(R.id.btBuscar);
-        buscar = findViewById(R.id.etBuscador);
-
+        initComponents();
         cargarCombo();
+        setListener();
 
-        buscador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nombre = buscar.getText().toString();
-                Intent intent = new Intent(getBaseContext(), SearchCharactersActivity.class);
-                intent.putExtra("nombre", nombre);
-                startActivity(intent);
-            }
-        });
-
-        lstCharactersPresenter = new LstCharactersPresenter(this);
-        lstCharactersPresenter.getCharacters();
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        LstFragment fragment = LstFragment.newInstance();
+        fragmentTransaction.add(R.id.activity_lst_characters_linearLayout_center,fragment);
+        fragmentTransaction.commit();
     }
 
-    @Override
-    public void success(ArrayList<Character> characters) {
-        //Obtener el Recycler
-        recycler = findViewById(R.id.recyclerCharacters);
-        recycler.setHasFixedSize(true);
-
-        //Usar un administrador para LinearLayout
-        // 1º) Tipo Lista
-        // 2º) Tipo Grid
-        lManager = new LinearLayoutManager(this);
-
-        recycler.setLayoutManager(lManager);
-        //Crear un nuevo adaptador
-        CharacterAdapter adapter = new CharacterAdapter(characters);
-
-        recycler.setAdapter(adapter);
+    private void initComponents(){
+        spinner = findViewById(R.id.activity_lst_characters_spinner);
+        editTextSearch = findViewById(R.id.activity_lst_characters_textinput_search);
+        buttonSearch = findViewById(R.id.activity_lst_characters_button_search);
     }
 
-    @Override
-    public void error(String message) {
-        Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
-    }
-
-    public void cargarCombo(){
-        comboFiltro = findViewById(R.id.spFiltro);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,listaSpinner);
-        comboFiltro.setAdapter(arrayAdapter);
-        comboFiltro.setSelected(false);
-        comboFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+    private void cargarCombo(){
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getBaseContext(), android.R.layout.simple_spinner_item,listaSpinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setSelected(false);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String fecha = parent.getItemAtPosition(position).toString();
-                if (fecha == " ")
-                    return;
-                Intent intent = new Intent(getBaseContext(),FilterCharacterActivity.class);
-                intent.putExtra("fecha",fecha);
-                startActivity(intent);
+                if (fecha == " ") return;
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FilterCharacterFragment fragment = FilterCharacterFragment.newInstance(fecha);
+                fragmentTransaction.replace(R.id.activity_lst_characters_linearLayout_center,fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
 
             @Override
@@ -106,4 +73,21 @@ public class LstCharactersActivity extends AppCompatActivity  implements LstChar
         });
     }
 
+    private void setListener(){
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombre = editTextSearch.getText().toString();
+                if (nombre.isEmpty()) return;
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                SearchCharacterFragment fragment = SearchCharacterFragment.newInstance(nombre);
+                fragmentTransaction.replace(R.id.activity_lst_characters_linearLayout_center,fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                editTextSearch.setText("");
+            }
+        });
+    }
 }

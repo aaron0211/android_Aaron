@@ -27,7 +27,7 @@ public class SearchCharactersPresenter implements SearchCharactersContract.Prese
 
             @Override
             public void reject(String error) {
-                view.error("Fallo al traer los datos");
+                view.error(error);
             }
         },nombre);
     }

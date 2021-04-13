@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             Intent navegar = new Intent(getBaseContext(), LstCharactersActivity.class);
             startActivity(navegar);
-        }, 4000);
+            this.finish();
+        }, 2500);
     }
 }
