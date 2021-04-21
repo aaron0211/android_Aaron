@@ -3,20 +3,14 @@ package com.example.actividaddeaprendizaje.characters.lstCharacters.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.actividaddeaprendizaje.R;
@@ -24,6 +18,7 @@ import com.example.actividaddeaprendizaje.beans.Character;
 import com.example.actividaddeaprendizaje.characters.adapter.CharacterAdapter;
 import com.example.actividaddeaprendizaje.characters.lstCharacters.contract.LstCharactersContract;
 import com.example.actividaddeaprendizaje.characters.lstCharacters.presenter.LstCharactersPresenter;
+import com.example.actividaddeaprendizaje.characters.searchCharacters.view.NotFoundFragment;
 
 import java.util.ArrayList;
 
@@ -110,14 +105,6 @@ public class LstFragment extends Fragment implements LstCharactersContract.View{
 
     @Override
     public void success(ArrayList<Character> characters) {
-        if (characters.size()<1){
-            NotFoundFragment notFoundFragment = new NotFoundFragment();
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_lst_characters_layout_Relative,notFoundFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-
         progressBar.setVisibility(View.GONE);
         recycler.setVisibility(View.VISIBLE);
         hideError();

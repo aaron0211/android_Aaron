@@ -129,6 +129,19 @@ public class SearchCharacterFragment extends Fragment implements SearchCharacter
     }
 
     @Override
+    public void successVoid(String notFound) {
+        progressBar.setVisibility(View.GONE);
+        recycler.setVisibility(View.VISIBLE);
+        hideError();
+
+        NotFoundFragment notFoundFragment = NotFoundFragment.newInstance(notFound);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_lst_characters_layout_Relative,notFoundFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
     public void error(String mensaje) {
         progressBar.setVisibility(View.GONE);
         recycler.setVisibility(View.GONE);

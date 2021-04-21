@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".characters.lstCharacters.fragment.NotFoundFragment">
+    tools:context=".characters.searchCharacters.view.NotFoundFragment">
 
     <ImageView
         android:id="@+id/fragment_not_found_ivSearch"
@@ -13,9 +13,9 @@
         android:layout_centerInParent="true"/>
 
     <TextView
+        android:id="@+id/fragment_not_found_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Personaje no encontrado"
         android:textSize="20dp"
         android:layout_below="@+id/fragment_not_found_ivSearch"
         android:layout_centerInParent="true"/>

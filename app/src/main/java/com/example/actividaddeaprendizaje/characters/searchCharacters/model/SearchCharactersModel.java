@@ -22,8 +22,10 @@ public class SearchCharactersModel implements SearchCharactersContract.Model, Ca
 
     @Override
     public void onResponse(Call<ResponseAPI> call, Response<ResponseAPI> response) {
-        if (response.isSuccessful()){
+        if (response.isSuccessful() && !response.body().getData().getResults().isEmpty()){
             onCharacterListener.resolve(response.body().getData().getResults());
+        }else {
+            onCharacterListener.resolveVoid("Character Not Found");
         }
     }
 

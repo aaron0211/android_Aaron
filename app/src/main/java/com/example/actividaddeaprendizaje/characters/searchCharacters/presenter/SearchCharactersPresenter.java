@@ -26,6 +26,11 @@ public class SearchCharactersPresenter implements SearchCharactersContract.Prese
             }
 
             @Override
+            public void resolveVoid(String notFound) {
+                view.successVoid(notFound);
+            }
+
+            @Override
             public void reject(String error) {
                 view.error(error);
             }
